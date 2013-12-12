@@ -24,7 +24,6 @@ class Scraper:
         html = urllib2.urlopen(url).read()
         soup = BeautifulSoup.BeautifulSoup(html)
 
-
         today =  soup.find('div',{'id':'day1'})
         date_res = today.find('b').renderContents().strip()
         date = date_res.split(', ')[1]
@@ -34,8 +33,8 @@ class Scraper:
         for name in menu_name_res[0:2]:
             name = name.renderContents()
             search = re.search(r'alt="(.*)" title', name)
-        if search:
-            name = re.sub(r'<img.*/>', search.group(1), name)
+            if search:
+                name = re.sub(r'<img.*/>', search.group(1), name)
             menu_raw = menu_raw + name + ". "
 
         name_translated = self.translate(unicode(menu_raw, 'utf-8'), "ja")
