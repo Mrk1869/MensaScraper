@@ -5,19 +5,14 @@ import BeautifulSoup
 import re
 import pymongo
 from microsofttranslator import Translator
+from key import config
 
 class Scraper:
     def __init__(self):
         conn = pymongo.Connection()
         self.db = conn.mensa
-
-        for line in open("./key/translator.txt"):
-            id_match = re.match('[ \\t]*<ID>(.*)</ID>', line)
-            if id_match:
-                self.translator_id = id_match.group(1)
-            key_match = re.match('[ \\t]*<Key>(.*)</Key>', line)
-            if key_match:
-                self.translator_key = key_match.group(1)
+        self.translator_id = config.Translator.userid
+        self.translator_key = config.Translator.key
 
     def translate(self, query, to):
         translator = Translator(self.translator_id,self.translator_key)
