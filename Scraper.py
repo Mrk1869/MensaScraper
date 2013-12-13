@@ -3,10 +3,14 @@
 import urllib2
 import BeautifulSoup
 import re
+import pymongo
 from microsofttranslator import Translator
 
 class Scraper:
     def __init__(self):
+        conn = pymongo.Connection()
+        self.db = conn.mensa
+
         for line in open("./key/translator.txt"):
             id_match = re.match('[ \\t]*<ID>(.*)</ID>', line)
             if id_match:
@@ -43,11 +47,12 @@ class Scraper:
         menu_image_res  = today.findAll('img',{'width':'100%'})
         menu_image = [url+image['src'][2::] for image in menu_image_res[0:2]]
 
-        return {"date":date,
+        res = {"date":date,
                 "menu1":{"name":menu_name[0], "image":menu_image[0]},
                 "menu2":{"name":menu_name[1], "image":menu_image[1]}}
+        self.db.mensa.menu.save(res)
+        return res
 
 if __name__ == "__main__":
     scraper = Scraper()
     print scraper.getMenu()
-    #print scraper.translate("hello", "ja")
