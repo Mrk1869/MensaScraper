@@ -34,10 +34,10 @@ class Scraper:
             search = re.search(r'alt="(.*)" title', name)
             if search:
                 name = re.sub(r'<img.*/>', search.group(1), name)
-            menu_raw = menu_raw + name + ". "
+            menu_raw = menu_raw + name + ".-. "
 
         name_translated = self.translate(unicode(menu_raw, 'utf-8'), "ja")
-        menu_name = [name for name in name_translated.split(u'。')]
+        menu_name = [name for name in name_translated.split(u'-。')]
 
         menu_image_res  = today.findAll('img',{'width':'100%'})
         menu_image = [url+image['src'][2::] for image in menu_image_res[0:2]]
