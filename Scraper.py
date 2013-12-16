@@ -42,6 +42,7 @@ class Scraper:
         menu_image_res  = today.findAll('img',{'width':'100%'})
         menu_image = [url+image['src'][2::] for image in menu_image_res[0:2]]
 
+        self.db.mensa.menu.remove({"date":date})
         res = {"date":date,
                 "menu1":{"name":menu_name[0], "image":menu_image[0]},
                 "menu2":{"name":menu_name[1], "image":menu_image[1]}}
