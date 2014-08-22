@@ -24,7 +24,7 @@ class Tweet:
         print "Tweeted."
 
     def tweetMenu(self):
-        url = "http://api.mrk1869.com/mensa/v1/today/"
+        url = "http://api.mrk1869.com/mensa/v1/"
         html = urllib2.urlopen(url).read()
         data = json.loads(html)
         res2 =  "MENU2: "+ data['menu2']['name'] + " " + data['menu2']['image']
