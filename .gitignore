@@ -1,3 +1,6 @@
-.DS_Store
-*.swp
-key/
+# python
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.pyc
+
+key.py
