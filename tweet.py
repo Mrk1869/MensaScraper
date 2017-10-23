@@ -4,23 +4,22 @@ import urllib2
 import twitter
 import json
 import datetime
-from key import config
+import key
 
 class Tweet:
 
     def __init__(self):
         self.api = twitter.Api(
-            consumer_key = config.Twitter.consumer_key,
-            consumer_secret = config.Twitter.consumer_secret,
-            access_token_key = config.Twitter.access_token,
-            access_token_secret = config.Twitter.access_token_secret,
+            consumer_key = key.Twitter.consumer_key,
+            consumer_secret = key.Twitter.consumer_secret,
+            access_token_key = key.Twitter.access_token,
+            access_token_secret = key.Twitter.access_token_secret,
         )
         d = datetime.datetime.today()
         self.today = str(d.month)+u"月"+str(d.day)+u"日 "
 
     def tweet(self, str):
-        str_encode = str.encode('utf-8')
-        self.api.PostUpdate(str_encode)
+        self.api.PostUpdate(str)
         print "Tweeted."
 
     def tweetMenu(self):
@@ -31,6 +30,7 @@ class Tweet:
         self.tweet(self.today+res2)
         res1 =  "MENU1: "+ data['menu1']['name'] + " " + data['menu1']['image']
         self.tweet(self.today+res1)
+
 
 if __name__ == '__main__':
     tweet = Tweet()
