@@ -3,16 +3,16 @@
 import urllib2
 import BeautifulSoup
 import re
-import pymongo
 import key
 import requests
 from xml.etree import ElementTree
 from auth import AzureAuthClient
+from pymongo import MongoClient
 
 
 class Scraper:
     def __init__(self):
-        conn = pymongo.Connection()
+        conn = MongoClient()
         self.db = conn.mensa
 
     def translate(self, query, to):
